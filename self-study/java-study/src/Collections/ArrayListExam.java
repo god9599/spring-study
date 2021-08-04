@@ -1,6 +1,7 @@
 package Collections;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 /* ArrayList
    단방향 포인터 구조로 각 데이터에 대한 인덱스를 가지고 있어 조회 기능에 성능이 뛰어남*/
@@ -13,14 +14,16 @@ public class ArrayListExam {
         arrayList.add(null); // null값도 add 가능
 
         arrayList.remove(1); // index 1 제거 -> 남은 값들의 index가 1씩 땡겨짐
-        arrayList.clear(); // 싹 다 제거
 
-        for (int i = 0; i < arrayList.size(); i++) {
-            System.out.println("arrList" + i + " : " + arrayList.get(i));
+        Iterator iter = arrayList.iterator(); // 선언
+        while (iter.hasNext()) {
+            System.out.println(iter.next());
         }
 
         System.out.println(arrayList.size()); // 크기
         System.out.println(arrayList.contains("이강인")); // list에 이강인이 있는 지 검사 있으면 true
         System.out.println(arrayList.indexOf("이강인")); // 이강인이 있는 index값 반환 없으면 -1
+
+        arrayList.clear(); // 싹 다 제거
     }
 }
