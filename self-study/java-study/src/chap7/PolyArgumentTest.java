@@ -1,5 +1,7 @@
 package chap7;
 
+import java.util.Vector;
+
 class Product{
     int price;
     int bonusPoint;
@@ -32,8 +34,7 @@ class Computer1 extends Product {
 class Buyer {
     int money = 1000;
     int bonusPoint = 0;
-    Product[] item = new Product[10];
-    int i = 0;
+    Vector item = new Vector();
     void buy(Product product) {
         if (money < product.price) {
             System.out.println("잔고 부족이요");
@@ -41,7 +42,7 @@ class Buyer {
         }
         money -= product.price;
         bonusPoint += product.bonusPoint;
-        item[i++] = product;
+        item.add(product);
         System.out.println(product + "를 구매했습니다");
     }
     void summary() {
@@ -49,12 +50,10 @@ class Buyer {
         String itemList = "";
 
         // 구입한 물품의 총 가격과 목록을 만든다.
-        for (int i = 0; i < item.length; i++) {
-            if (item[i] == null) {
-                break;
-            }
-            sum += item[i].price;
-            itemList += item[i] + ", ";
+        for (int i = 0; i < item.size(); i++) {
+            Product p = (Product) item.get(i);
+            sum += p.price;
+            itemList += (i==0) ? "" + p : ", " + p;
         }
         System.out.println("구입한 물품의 총 금액은 : " + sum + "원 입니다");
         System.out.println("구입한 물품들은" + itemList + "입니다");
