@@ -22,7 +22,7 @@ public class CompanyController {
 
     @GetMapping("")
     public List<Company> getAll() {
-        return companyService.getAll();
+        return companyMapper.getAll();
     }
 
     @GetMapping("{id}")
