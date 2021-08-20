@@ -1,4 +1,4 @@
-package com.example.mybatisstudy;
+package com.example.mybatisstudy.Company;
 
 import org.apache.ibatis.annotations.*;
 

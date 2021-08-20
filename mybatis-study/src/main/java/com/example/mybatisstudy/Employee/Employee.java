@@ -1,10 +1,11 @@
-package com.example.mybatisstudy;
+package com.example.mybatisstudy.Employee;
 
 import lombok.Data;
 
 @Data
-public class Company {
+public class Employee {
     private int id;
+    private int companyId;
     private String name;
     private String address;
 }

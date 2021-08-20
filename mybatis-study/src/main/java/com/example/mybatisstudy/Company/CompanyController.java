@@ -1,4 +1,4 @@
-package com.example.mybatisstudy;
+package com.example.mybatisstudy.Company;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
