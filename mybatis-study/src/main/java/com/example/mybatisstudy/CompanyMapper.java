@@ -17,5 +17,11 @@ public interface CompanyMapper {
     })
     List<Company> getAll();
 
+    @Select("SELECT * FROM company WHERE id = #{id}")
+    @Results({
+            @Result(property = "name", column = "company_name"),
+            @Result(property = "address", column = "company_address")
+    })
+    Company getById(@Param("id") int id);
 
 }
