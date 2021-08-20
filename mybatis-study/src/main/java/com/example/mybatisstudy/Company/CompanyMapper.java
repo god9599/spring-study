@@ -11,10 +11,11 @@ public interface CompanyMapper {
     int insert(@Param("company") Company company);
 
     @Select("SELECT * FROM company")
-    @Results(id="CompanyMap", value = {
+    @Results(id = "CompanyMap", value = {
             @Result(property = "name", column = "company_name"),
             @Result(property = "address", column = "company_address"),
-            @Result(property = "employeeList", column = "id", many = @Many(select = "com.example.mybatisstudy.Employee.EmployeeMapper.getByCompanyId"))
+            @Result(property = "employeeList", column = "id", many = @Many(select = "com.example.mybatisstudy.Employee.EmployeeMapper.getByCompanyId")),
+            @Result(property = "id", column = "id", id = true),
     })
     List<Company> getAll();
 
