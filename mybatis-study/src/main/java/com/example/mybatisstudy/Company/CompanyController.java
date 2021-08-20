@@ -11,6 +11,9 @@ public class CompanyController {
     @Autowired
     private CompanyMapper companyMapper;
 
+    @Autowired
+    private CompanyService companyService;
+
     @PostMapping("")
     public Company post(@RequestBody Company company) {
         companyMapper.insert(company);
@@ -19,7 +22,7 @@ public class CompanyController {
 
     @GetMapping("")
     public List<Company> getAll() {
-        return companyMapper.getAll();
+        return companyService.getAll();
     }
 
     @GetMapping("{id}")
