@@ -17,6 +17,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
+
+/*
+* HikariCP 설정 파일을 이용해서 datasource를 생성
+* application.properties에서 설정한 데이터베이스 관련 정보를 사용하도록 지정
+*/
 @PropertySource("classpath:/application.properties")
 public class DatabaseConfiguration {
     @Autowired
@@ -31,10 +36,14 @@ public class DatabaseConfiguration {
     @Bean
     public DataSource dataSource() throws Exception {
         DataSource dataSource = new HikariDataSource(hikariConfig());
-        System.out.println(dataSource.toString());
+        System.out.println(dataSource);
         return dataSource;
     }
 
+    /*
+    * MyBatis의 mapper 위치를 설정
+    * SqlSessionFactory 객체에 datasource를 참조하여 MyBatis와 DB 서버를 연동
+    * */
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
@@ -51,7 +60,7 @@ public class DatabaseConfiguration {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
-    // mybatis 관련 설정을 가져와 자바 클래스로 변환
+    // camel case와 snake case를 이어주는 설정 적용
     @Bean
     @ConfigurationProperties(prefix = "mybatis.configuration")
     public org.apache.ibatis.session.Configuration mybatisConfig() {
@@ -60,6 +69,7 @@ public class DatabaseConfiguration {
 
     @Bean
     public PlatformTransactionManager transactionManager() throws Exception {
+
         return new DataSourceTransactionManager((dataSource()));
     }
 }
