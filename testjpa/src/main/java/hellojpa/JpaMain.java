@@ -23,11 +23,20 @@ public class JpaMain {
 
             /*
              ** insert **
+
+             --- 비영속 상태 : 단지 객체를 생성했을 뿐 JPA와 아무런 상관도 없음 ---
             Member member = new Member();
             member.setId(1L);
             member.setName("test");
 
+            --- 영속 상태 : Entity Manager안에 영속성 컨텍스트를 통해 영속성이 관리됨, 이 때 db에 저장되는 것이 아님 ---
             em.persist(member);
+
+            --- member 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태 ---
+            em.detatch(member);
+
+            --- commit한 시점에서 영속성 컨텍스트에 있는 것이 쿼리로 날라가게 되는 것임 ---
+            transaction.commit();
             */
 
             /*
