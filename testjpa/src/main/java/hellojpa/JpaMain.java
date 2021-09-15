@@ -63,6 +63,7 @@ public class JpaMain {
 
             /*
              ** JPQL example **
+             JPQL 쿼리 실행 시에 플러쉬 자동으로 호출됨
             List<Member> resultList = em.createQuery("select m from Member as m", Member.class)
                     .getResultList();
 
@@ -77,9 +78,13 @@ public class JpaMain {
             em.persist(member1);
             em.persist(member2);
 
+            // 플러쉬 강제 호출 - commit 전에 쓰기 지연 SQL 저장소에 있던 SQL들이 디비로 날라감
+            em.flush();
+
             System.out.println("============================");
 
-            transaction.commit();
+            // 커밋 시에 플러쉬가 자동으로 호출됨 - 플러쉬는 영속성 컨텍스트를 비우지 않는다. 단지, 영속성 컨텍스트의 변경 내용을 데이터베이스의 동기화할 뿐
+           transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
