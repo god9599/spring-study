@@ -30,12 +30,15 @@ public class JpaMain {
             member.setName("test");
 
             --- 영속 상태 : Entity Manager안에 영속성 컨텍스트를 통해 영속성이 관리됨, 이 때 db에 저장되는 것이 아님 ---
+
+            --- 트랜잭션을 지원하는 쓰기 지연 : 영속성 컨텍스트 안에 쓰기 지연 SQL 저장소가 있다. persist를 하면 1차 캐시에 member 객체가 들어가고 그에 해당하는 insert sql이 저장소에 저장된다.
             em.persist(member);
 
             --- member 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태 ---
-            em.detatch(member);
+            em.detach(member);
 
             --- commit한 시점에서 영속성 컨텍스트에 있는 것이 쿼리로 날라가게 되는 것임 ---
+            --- 쓰기 지연 SQL 저장소에 있던 SQL들이 이 때 날라감 ---
             transaction.commit();
             */
 
@@ -67,6 +70,14 @@ public class JpaMain {
                 System.out.println("member.name = " + member.getName());
             }
             */
+
+            Member member1 = new Member(150L, "test");
+            Member member2 = new Member(200L, "test2");
+
+            em.persist(member1);
+            em.persist(member2);
+
+            System.out.println("============================");
 
             transaction.commit();
         } catch (Exception e) {
