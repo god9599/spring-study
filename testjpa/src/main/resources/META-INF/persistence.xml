@@ -17,7 +17,7 @@
             <property name="hibernate.use_sql_comments" value="true"/>
             <!-- batch size만큼 모아서 한번에 db로 보냄 -->
             <property name="hibernate.jdbc.batch_size" value="10"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
 </persistence>
