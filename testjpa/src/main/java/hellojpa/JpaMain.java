@@ -72,6 +72,8 @@ public class JpaMain {
             }
             */
 
+            /*
+              ** Flush example **
             Member member1 = new Member(150L, "test");
             Member member2 = new Member(200L, "test2");
 
@@ -82,8 +84,21 @@ public class JpaMain {
             em.flush();
 
             System.out.println("============================");
+            */
 
-            // 커밋 시에 플러쉬가 자동으로 호출됨 - 플러쉬는 영속성 컨텍스트를 비우지 않는다. 단지, 영속성 컨텍스트의 변경 내용을 데이터베이스의 동기화할 뿐
+            Member member = em.find(Member.class, 150L); // 영속 상태
+            member.setName("aaaa");
+
+            em.detach(member); // 특정 엔티티만 준영속 상태로 전환
+            em.clear(); // 영속성 컨텍스트를 다 비워버림
+            em.close(); // 영속성 컨텍스트 종료
+
+           Member member2 = em.find(Member.class, 150L); // 영속성 컨텍스트(1차 캐시)를 다 비워버렸기 때문에 select 쿼리가 두 번 실행됨, 다시 영속 상태로 됨
+
+
+
+
+           // 커밋 시에 플러쉬가 자동으로 호출됨 - 플러쉬는 영속성 컨텍스트를 비우지 않는다. 단지, 영속성 컨텍스트의 변경 내용을 데이터베이스의 동기화할 뿐
            transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
