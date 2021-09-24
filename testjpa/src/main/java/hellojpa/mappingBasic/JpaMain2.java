@@ -17,26 +17,19 @@ public class JpaMain2 {
 
         try {
             Team team = new Team();
-            team.setName("test");
-
+            team.setName("TeamA");
             em.persist(team);
 
             Member member = new Member();
-            member.setUsername("testName");
-            member.setTeam(team);
-
+            member.setUsername("member1");
+            member.changeTeam(team); // 순수 객체 상태를 고려해 양쪽에 값을 설정
             em.persist(member);
+
             em.flush();
             em.clear();
 
-            // 조회
-            Member findMember = em.find(Member.class, member.getId());
-
-            Team findMemberTeam = findMember.getTeam();
-            System.out.println("findMemberTeam : " + findMemberTeam.getName());
-
-            List<Member> members = findMember.getTeam().getMembers();
-
+            Team findTeam = em.find(Team.class, team.getId());
+            List<Member> members = findTeam.getMembers();
             for (Member m : members) {
                 System.out.println("m = " + m.getUsername());
             }

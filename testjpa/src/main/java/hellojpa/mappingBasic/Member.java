@@ -37,7 +37,8 @@ public class Member {
         return team;
     }
 
-    public void setTeam(Team team) {
+    public void changeTeam(Team team) {
         this.team = team;
+        team.getMembers().add(this); // 순수 객체 상태를 고려해 양쪽에 값을 설정
     }
 }
