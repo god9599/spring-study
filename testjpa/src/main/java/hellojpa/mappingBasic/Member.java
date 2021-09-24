@@ -13,7 +13,7 @@ public class Member {
 
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
-    @ManyToOne // 연관관계 매핑
+    @ManyToOne // 연관관계 매핑 , 외래키가 있는 곳(N쪽)을 주인으로 정하자 ( 수정, 삭제 가능 )
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
