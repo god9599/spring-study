@@ -1,6 +1,8 @@
 package hellojpa.mappingBasic;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -11,11 +13,14 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
+    @ManyToOne // 연관관계 매핑 , 외래키가 있는 곳(N쪽)을 주인으로 정하자 ( 수정, 삭제 가능 )
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
-    @ManyToOne // 연관관계 매핑 , 외래키가 있는 곳(N쪽)을 주인으로 정하자 ( 수정, 삭제 가능 )
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
 
     public Long getId() {
         return id;
